@@ -1,5 +1,12 @@
 package repository
 
+import (
+	"database/sql"
+	"time"
+
+	"github.com/Dioneprey/go-gateway-antifraude/internal/domain"
+)
+
 type AccountRepository struct {
 	db *sql.DB
 }
@@ -17,16 +24,16 @@ func (r *AccountRepository) Save(account *domain.Account) error {
 	if err != nil {
 		return err
 	}
-	defer stmt.Close()	
+	defer stmt.Close()
 
 	_, err = stmt.Exec(
-		account.ID, 
-		account.Name, 
-		account.Email, 
-		account.APIKey, 
-		account.Balance, 
+		account.ID,
+		account.Name,
+		account.Email,
+		account.APIKey,
+		account.Balance,
 		account.CreatedAt,
-		account.UpdatedAt
+		account.UpdatedAt,
 	)
 	if err != nil {
 		return err
